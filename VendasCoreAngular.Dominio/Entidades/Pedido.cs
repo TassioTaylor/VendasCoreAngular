@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using VendasCoreAngular.Dominio.ObjetoDeValor;
 
 namespace VendasCoreAngular.Dominio.Entidades
 {
-   public class Pedido
+   public class Pedido : Entidade
     {
         public int id { get; set; }
         public DateTime DataPedido { get; set; }
@@ -21,5 +22,16 @@ namespace VendasCoreAngular.Dominio.Entidades
         public FormaPagamento FormaPagamento { get; set; }
 
         public ICollection<ItemPedido> ItensPedidos { get; set; }
+
+        public override void Validate()
+        {
+            LimparMensagensValidadcao();
+
+            if (!ItensPedidos.Any())
+                AdicionarCritica("Crítica - Pedido não pode ficar sem Item");
+            if (string.IsNullOrEmpty(CEP))
+                AdicionarCritica("Crítica - Cep deve estar preenchido");
+
+        } 
     }
 }

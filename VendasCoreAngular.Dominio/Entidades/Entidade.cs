@@ -1,11 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace VendasCoreAngular.Dominio
+namespace VendasCoreAngular.Dominio.Entidades
 {
-    public class abstract Entidade
+    public abstract class Entidade
     {
-        public int id { get; set; }
+        public List<string> _mensagensValidacao { get; set; }
+        private List<string> MensagemValidacao
+        {
+            get { return _mensagensValidacao ?? (_mensagensValidacao = new List<string>()); }
+        }
+
+        protected void LimparMensagensValidadcao()
+        {
+            MensagemValidacao.Clear();
+        }
+
+        protected void AdicionarCritica(string mensagem)
+        {
+            MensagemValidacao.Add(mensagem);
+        }
+
+        public abstract void Validate();
+        protected bool isValido
+        {
+            get { return !MensagemValidacao.Any(); }
+        }
     }
 }

@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using VendasCoreAngular.Dominio.Entidades;
 
 namespace VendasCoreAngular.Dominio
 {
-    public class Usuario
+    public class Usuario : Entidade
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -14,5 +15,9 @@ namespace VendasCoreAngular.Dominio
         public string SobreNome { get; set; }
         public ICollection<Entidades.Pedido> Pedidos  { get; set; }
 
+        public override void Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
